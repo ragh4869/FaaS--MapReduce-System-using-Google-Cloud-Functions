@@ -30,7 +30,7 @@ Before uploading the zip files as functions, some code changes need to be made.
 #### Code changes and file addition:
 
 Since I have used the GCP Bucket for the cloud storage, do the following changes -
-* Add the service account key file to the server_files
+* Add the service account key file (json file) to the 3 folders - main-function, mapper-function and reducer-function
 * The code changes that need to be done is for the change in the name of the service account key (json file). This name change needs to be implemented in the 3 **main.py** code files which are in the 3 different folders. 
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "raghav-cskumar-fall2022-387fa080baee.json"
