@@ -1,0 +1,5 @@
+{
+	"inverted_index" : {
+		"mappers": 10, "reducers": 4, "mapper_func": "map_inv_ind", "reducer_func": "red_inv_ind"
+	}
+}
