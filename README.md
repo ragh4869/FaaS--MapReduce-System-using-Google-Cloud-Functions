@@ -21,6 +21,33 @@ For the set-up, two GCP Buckets are created for the Map-Reduce system as explain
 *	The first GCP Bucket is the “gcs-bucket-fall2022-files” where the user adds the text files that needs to be split and updated in the inverted index final output.
 *	The second GCP Bucket is the “gcs-bucket-fall2022” where the cloud functions use these storage to store the intermediate files and the final json output file.
 
+### How to run or perform the tests using the code?
+
+The three folders main-function, mapper-function and reducer-function have the necessary codes to deploy the MapReduce System using Cloud Functions. these 3 folders need to be converted to zip files and can each be uploaded as a cloud function.
+
+Before uploading the zip files as functions, some code changes need to be made.
+
+#### Code changes and file addition:
+
+Since I have used the GCP Bucket for the cloud storage, do the following changes -
+* Add the service account key file to the server_files
+* The code changes that need to be done is for the change in the name of the service account key (json file). This name change needs to be implemented in the 3 **main.py** code files which are in the 3 different folders. 
+
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "raghav-cskumar-fall2022-387fa080baee.json"
+
+Instead of "raghav-cskumar-fall2022-387fa080baee.json", replace it with your service account key name (json file name).
+
+* main-function - main.py: Line 476
+* mapper-function - main.py: Line 115
+* reducer-function - main.py: Line 142
+
+Apart from these code changes to accommodate for GCP Bucket access, the url links for the mapper-function and reducer-function in the main-function code needs to be updated as illustrated below: 
+
+* main-function: Line 15 (mapper-function url)
+* main-function: Line 28 (reducer-function url)
+
+![Code Changes Link](https://user-images.githubusercontent.com/96961381/211072719-bedfb15a-03b6-4eb2-b410-19752506d116.JPG)
+
 ### Cloud Functions:
 
 #### main-function:
@@ -46,7 +73,7 @@ Each mapper produces this intermediary output for each associated word. A mapper
 
 ![Mapper Barrier](https://user-images.githubusercontent.com/96961381/211068251-d5a71b5c-3bac-489e-82ea-32805e9fbc79.jpeg)
 
-
+![mapper-function link](https://user-images.githubusercontent.com/96961381/211072722-a10f4e56-32af-473d-a92d-dcf6180b2ba5.JPG)
 
 #### reducer-function: Parallel Reduce and Barrier Synch for reducers
 
@@ -58,7 +85,7 @@ Each reducer produces this final output for each associated word. A reducer barr
 
 ![Reducer Barrier](https://user-images.githubusercontent.com/96961381/211068252-76123ee1-77f2-4cd2-b352-4b5112c3ec96.jpeg)
 
-
+![reducer-function link](https://user-images.githubusercontent.com/96961381/211072723-427045f4-001d-4443-bf25-e15a9862478c.JPG)
 
 ### Intermediate Output:
 
